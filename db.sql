@@ -27,7 +27,7 @@ CREATE TABLE tipos_practicas(
 
 CREATE TABLE ciclos(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre INT NOT NULL
+    nombre VARCHAR(25) NOT NULL
 );
 
 CREATE TABLE empresas(
@@ -153,3 +153,37 @@ INSERT INTO `tipo_usuario` (`id`, `nombre`) VALUES (NULL, 'profesor');
 
 INSERT INTO usuarios (username, nombre, apellidos, email, contrasena, telefono, id_tipo_usuario)
 VALUES ('admin', 'admin', 'admin', 'admin@admin', 'admin', '123456789', 1);
+
+-- INSERT INTO ciclos (nombre) VALUES ('DAW');
+-- INSERT INTO ciclos (nombre) VALUES ('DAM');
+-- INSERT INTO ciclos (nombre) VALUES ('ASIR');
+-- INSERT INTO ciclos (nombre) VALUES ('AD');
+-- INSERT INTO ciclos (nombre) VALUES ('ADE');
+-- INSERT INTO ciclos (nombre) VALUES ('ASI');
+-- INSERT INTO ciclos (nombre) VALUES ('AF');
+-- INSERT INTO ciclos (nombre) VALUES ('EI');
+-- INSERT INTO ciclos (nombre) VALUES ('MP');
+-- INSERT INTO ciclos (nombre) VALUES ('DAM');
+-- INSERT INTO ciclos (nombre) VALUES ('DAW');
+-- INSERT INTO ciclos (nombre) VALUES ('STI');
+-- INSERT INTO ciclos (nombre) VALUES ('GA');
+-- INSERT INTO ciclos (nombre) VALUES ('GV');
+-- INSERT INTO ciclos (nombre) VALUES ('TLYL');
+-- INSERT INTO ciclos (nombre) VALUES ('TFP');
+-- INSERT INTO ciclos (nombre) VALUES ('TES');
+-- INSERT INTO ciclos (nombre) VALUES ('TME');
+-- INSERT INTO ciclos (nombre) VALUES ('TIEA');
+-- INSERT INTO ciclos (nombre) VALUES ('TSAF');
+-- INSERT INTO ciclos (nombre) VALUES ('TSDAMR');
+
+
+-- INSERT INTO alumnos (dni, nombre, apellidos, poblacion, email, otra_titulacion, vehiculo, id_ciclo) VALUES 
+-- ('12345678A', 'Juan', 'García Pérez', 'Madrid', 'juan.garcia@example.com', 'Bachillerato', 1, 1),
+-- ('98765432B', 'María', 'Martínez López', 'Barcelona', 'maria.martinez@example.com', NULL, 0, 2),
+-- ('56789012C', 'Carlos', 'Fernández Rodríguez', 'Valencia', 'carlos.fernandez@example.com', 'Ciclo Formativo de Grado Medio', 1, 3),
+-- ('34567890D', 'Ana', 'Sánchez Gómez', 'Sevilla', 'ana.sanchez@example.com', 'Ciclo Formativo de Grado Superior', 0, 4),
+-- ('90123456E', 'Laura', 'González Martín', 'Zaragoza', 'laura.gonzalez@example.com', NULL, 1, 5),
+-- ('78901234F', 'David', 'López Hernández', 'Málaga', 'david.lopez@example.com', NULL, 0, 6),
+-- ('23456789G', 'Sara', 'Pérez García', 'Alicante', 'sara.perez@example.com', 'Formación Profesional Básica', 1, 7),
+-- ('45678901H', 'Pedro', 'Rodríguez Martínez', 'Murcia', 'pedro.rodriguez@example.com', NULL, 0, 8),
+-- ('67890123I', 'Carmen', 'Martín Sánchez', 'Bilbao', 'carmen.martin@example.com', NULL, 1, 9);
