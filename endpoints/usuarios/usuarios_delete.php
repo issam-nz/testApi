@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
     // Delete the usuario
     $deleteSql = "DELETE FROM usuarios WHERE id = $id";
-    if ($conn->query($deleteSql) === TRUE) {
-        echo json_encode(['message' => 'Usuario deleted successfully']);
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(['message' => 'Usuario updated successfully', 'deleted' => false]);
     } else {
-        echo json_encode(['message' => 'Error deleting usuario: ' . $conn->error]);
+        echo json_encode(['message' => 'Error updating usuario: ' . $conn->error, 'deleted' => true]);
     }
 
     $conn->close();

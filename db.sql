@@ -149,6 +149,7 @@ CREATE TABLE practicas(
 
 
 INSERT INTO `tipo_usuario` (`id`, `nombre`) VALUES (NULL, 'admin');
+INSERT INTO `tipo_usuario` (`id`, `nombre`) VALUES (NULL, 'profesor');
 
 INSERT INTO usuarios (username, nombre, apellidos, email, contrasena, telefono, id_tipo_usuario)
 VALUES ('admin', 'admin', 'admin', 'admin@admin', 'admin', '123456789', 1);
