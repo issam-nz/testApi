@@ -1,54 +1,76 @@
 <?php
 
 // Include necessary files
-require_once 'config.php';
 require_once 'db.php';
 
-// Check JWT
-$headers = apache_request_headers();
-$jwt = $headers['Authorization'] ?? '';
+// Check if ID and filter are provided in the request
+$id = $_GET['id'] ?? '';
+$filter = $_GET['filter'] ?? '';
 
-// Handle GET request
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $conn = connectDB();
-    
-    // Check if id is provided in the request
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-        // Filter by id
-        $sql = "SELECT * FROM usuarios WHERE id = $id";
-    } else {
-        // Check if filters are provided in the request
-        $filters = [];
-        if (!empty($_GET)) {
-            // Example: Get filter for nombre
-            if (isset($_GET['nombre'])) {
-                $nombre = $_GET['nombre'];
-                $filters[] = "nombre LIKE '%$nombre%'";
+// Initialize response variables
+$success = false;
+$usuarios = null;
+$usuario = null;
+
+// Get usuario(s) from the database
+$conn = connectDB();
+if (!empty($id)) {
+    // Get usuario by ID
+    $sql = "SELECT * FROM usuarios WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $usuario = $result->fetch_assoc();
+        $success = true;
+    }
+} else {
+    // Build filter SQL if provided
+    $filterSQL = '';
+    if (!empty($filter)) {
+        $filterArray = json_decode($filter, true);
+        foreach ($filterArray as $key => $value) {
+            if (is_string($value)) {
+                // Handle string values with LIKE "%VALUE%"
+                $filterSQL .= " AND $key LIKE '%$value%'";
+            } elseif (is_numeric($value)) {
+                // Handle numeric values with =
+                $filterSQL .= " AND $key = $value";
+            } elseif (is_bool($value)) {
+                // Convert boolean value to 0 or 1 and handle with =
+                $boolValue = $value ? 1 : 0;
+                $filterSQL .= " AND $key = $boolValue";
             }
-            // Add more filters as needed
-        }
-
-        // Construct the SQL query based on filters
-        $sql = "SELECT * FROM usuarios";
-        if (!empty($filters)) {
-            $sql .= " WHERE " . implode(" AND ", $filters);
         }
     }
 
-    // Execute the SQL query
+    // Get all usuarios with filter if provided
+    $sql = "SELECT * FROM usuarios WHERE 1" . $filterSQL;
     $result = $conn->query($sql);
+
     if ($result->num_rows > 0) {
         $usuarios = [];
         while ($row = $result->fetch_assoc()) {
             $usuarios[] = $row;
         }
-        echo json_encode($usuarios);
-    } else {
-        echo json_encode(['message' => 'No usuarios found']);
+        $success = true;
     }
-
-    $conn->close();
 }
+
+// Prepare and return response
+if (!empty($id)) {
+    $response = [
+        'success' => $success,
+        'usuario' => $usuario
+    ];
+} else {
+    $response = [
+        'success' => $success,
+        'usuarios' => $usuarios
+    ];
+}
+
+echo json_encode($response);
+
+$conn->close();
 
 ?>
