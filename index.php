@@ -41,6 +41,12 @@ if ($endpoint === 'login' && $requestMethod === 'POST') {
 // Check if JWT exists and is valid for all other endpoints
 $headers = apache_request_headers();
 $jwt = $headers['Authorization'] ?? '';
+
+// var_dump($jwt);
+// var_dump($headers['Authorization']);
+// var_dump(verifyJWT($jwt));
+// die();
+
 if (!$jwt || !verifyJWT($jwt)) {
     http_response_code(401);
     echo json_encode(['message' => 'Unauthorized']);

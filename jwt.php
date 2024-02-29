@@ -13,6 +13,13 @@ function generateJWT($data) {
 }
 
 function verifyJWT($jwt) {
+    // Extract JWT token from Bearer prefix if present
+    $jwtParts = explode(' ', $jwt);
+    if (count($jwtParts) !== 2 || $jwtParts[0] !== 'Bearer') {
+        return null;
+    }
+    $jwt = $jwtParts[1];
+
     list($base64UrlHeader, $base64UrlPayload, $signature) = explode('.', $jwt);
     $data = json_decode(base64_decode($base64UrlPayload), true);
     $signatureProvided = base64_decode(str_replace(['-', '_'], ['+', '/'], $signature));

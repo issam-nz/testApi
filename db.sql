@@ -86,9 +86,9 @@ CREATE TABLE usuarios(
     email VARCHAR(100) NOT NULL UNIQUE,
     contrasena VARCHAR(20) NOT NULL,
     telefono VARCHAR(15),
-    id_tipo_usuario INT NOT NULL,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_deleted TINYINT(1) NOT NULL DEFAULT 0,
+    id_tipo_usuario INT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    is_deleted TINYINT(1) DEFAULT 0,
     FOREIGN KEY (id_tipo_usuario) REFERENCES tipo_usuario(id)
 );
 
@@ -149,3 +149,6 @@ CREATE TABLE practicas(
 
 
 INSERT INTO `tipo_usuario` (`id`, `nombre`) VALUES (NULL, 'admin');
+
+INSERT INTO usuarios (username, nombre, apellidos, email, contrasena, telefono, id_tipo_usuario)
+VALUES ('admin', 'admin', 'admin', 'admin@admin', 'admin', '123456789', 1);

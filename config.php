@@ -2,9 +2,9 @@
 
 // Database configuration
 define('DB_HOST', 'localhost');
-define('DB_USERNAME', 'your_db_username');
-define('DB_PASSWORD', 'your_db_password');
-define('DB_NAME', 'your_db_name');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'nazaret_practicas');
 
 // JWT configuration
 define('JWT_SECRET', 'your_secret_key');

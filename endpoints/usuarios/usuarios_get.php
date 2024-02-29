@@ -1,18 +1,12 @@
 <?php
 
 // Include necessary files
-require_once '../../jwt.php';
-require_once '../../config.php';
-require_once '../../db.php';
+require_once 'config.php';
+require_once 'db.php';
 
 // Check JWT
 $headers = apache_request_headers();
 $jwt = $headers['Authorization'] ?? '';
-if (!$jwt || !verifyJWT($jwt)) {
-    http_response_code(401);
-    echo json_encode(['message' => 'Unauthorized']);
-    exit();
-}
 
 // Handle GET request
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
