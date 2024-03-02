@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "INSERT INTO usuarios (username, nombre, apellidos, email, contrasena, id_tipo_usuario) VALUES ('$username', '$nombre', '$apellidos', '$email', '$contrasena', $id_tipo_usuario)";
     if ($conn->query($sql) === TRUE) {
         $newUsuarioId = $conn->insert_id;
-        echo json_encode(['message' => 'Usuario created successfully', 'id' => $newUsuarioId]);
+        echo json_encode(['message' => 'Usuario created successfully','created' => true, 'id' => $newUsuarioId]);
     } else {
-        echo json_encode(['message' => 'Error creating usuario: ' . $conn->error]);
+        echo json_encode(['message' => 'Error creating usuario: ' . $conn->error, 'created' => false]);
     }
 
     $conn->close();
