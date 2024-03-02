@@ -8,6 +8,6 @@ define('DB_NAME', 'nazaret_practicas');
 
 // JWT configuration
 define('JWT_SECRET', 'your_secret_key');
-define('JWT_EXPIRATION_TIME', 3600); // Expiration time in seconds (1 hour)
+define('JWT_EXPIRATION_TIME', 2592000); // Expiration time in seconds (1 month)
 
 ?>
