@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     if ($conn->query($sql) === TRUE) {
         echo json_encode(['message' => 'Alumno updated successfully', 'updated' => true]);
     } else {
+        http_response_code(500);
         echo json_encode(['message' => 'Error updating alumno: ' . $conn->error, 'updated' => false]);
     }
 

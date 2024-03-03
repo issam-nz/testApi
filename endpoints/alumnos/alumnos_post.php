@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newAlumnoId = $conn->insert_id;
         echo json_encode(['message' => 'Alumno created successfully', 'created' => true, 'id' => $newAlumnoId]);
     } else {
+        http_response_code(500);
         echo json_encode(['message' => 'Error creating alumno: ' . $conn->error, 'created' => false]);
     }
 

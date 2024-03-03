@@ -1,7 +1,6 @@
 <?php
 
 // Include necessary files
-require_once 'config.php';
 require_once 'db.php';
 
 // Handle DELETE request
@@ -9,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // Check if id is provided in the request
     if (!isset($_GET['id'])) {
         http_response_code(400);
-        echo json_encode(['message' => 'Bad request. Missing alumno id']);
+        echo json_encode(['message' => 'Bad request. Missing alumno id', 'deleted' => false]);
         exit();
     }
 
@@ -30,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     if ($conn->query($deleteSql) === TRUE) {
         echo json_encode(['message' => 'Alumno deleted successfully', 'deleted' => true]);
     } else {
+        http_response_code(500);
         echo json_encode(['message' => 'Error deleting alumno: ' . $conn->error, 'deleted' => false]);
     }
 
