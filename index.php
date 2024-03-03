@@ -5,7 +5,7 @@ require_once 'jwt.php';
 require_once 'config.php';
 
 // Define allowed endpoints
-$allowedEndpoints = ['usuarios', 'idiomas', 'tipos_practcas', 'tipos_usuario', 'practicas', 'alumnos', 'profesores', 'ciclos', 'empresas', 'centros_trabajo', 'contactos']; // Add more endpoints as needed
+$allowedEndpoints = ['usuarios', 'idiomas', 'tipos_practicas', 'tipos_usuario', 'practicas', 'alumnos', 'profesores', 'ciclos', 'empresas', 'centros_trabajo', 'contactos']; // Add more endpoints as needed
 // para luego tipo_usuario
 
 // Get request method and endpoint from the URL
