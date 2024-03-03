@@ -16,7 +16,7 @@ $alumno = null;
 $conn = connectDB();
 if (!empty($id)) {
     // Get alumno by ID
-    $sql = "SELECT a.id, a.dni, a.nombre, a.apellidos, a.poblacion, a.email, a.otra_titulacion, a.vehiculo, a.id_ciclo, c.nombre AS nombre_ciclo
+    $sql = "SELECT a.id, a.dni, a.nombre, a.apellidos, a.poblacion, a.email, a.otra_titulacion, a.vehiculo, a.ingles, a.euskera, a.otros_idiomas, a.id_ciclo, c.nombre AS nombre_ciclo
         FROM alumnos a
         INNER JOIN ciclos c ON a.id_ciclo = c.id
         WHERE a.id = $id";
@@ -36,7 +36,12 @@ if (!empty($id)) {
         foreach ($filterArray as $key => $value) {
             if (is_string($value)) {
                 // Handle string values with LIKE "%VALUE%"
-                $filterSQL .= " AND $key LIKE '%$value%'";
+                //verify the specific ones 
+                if ($key === "nombreCompleto") {
+                    $filterSQL .= " AND CONCAT(a.nombre, ' ', a.apellidos) LIKE '%$value%'";
+                } else {
+                    $filterSQL .= " AND $key LIKE '%$value%'";
+                }
             } elseif (is_numeric($value)) {
                 // Handle numeric values with =
                 $filterSQL .= " AND $key = $value";
@@ -49,7 +54,7 @@ if (!empty($id)) {
     }
 
     // Get all alumnos with filter if provided
-    $sql = "SELECT a.id, a.dni, a.nombre, a.apellidos, a.poblacion, a.email, a.otra_titulacion, a.vehiculo, c.id AS id_ciclo, c.nombre AS nombre_ciclo
+    $sql = "SELECT a.id, a.dni, a.nombre, a.apellidos, a.poblacion, a.email, a.otra_titulacion, a.vehiculo, a.ingles, a.euskera, a.otros_idiomas, c.id AS id_ciclo, c.nombre AS nombre_ciclo
         FROM alumnos a
         INNER JOIN ciclos c ON a.id_ciclo = c.id
         WHERE 1" . $filterSQL;
@@ -93,6 +98,9 @@ function convertRowToAlumno($row) {
         'email' => $row['email'],
         'otra_titulacion' => $row['otra_titulacion'],
         'vehiculo' => $row['vehiculo'],
+        'ingles' => $row['ingles'],
+        'euskera' => $row['euskera'],
+        'otros_idiomas' => $row['otros_idiomas'],
         'ciclo' => [
             'id' => $row['id_ciclo'],
             'nombre' => $row['nombre_ciclo']

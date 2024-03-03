@@ -16,6 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         !isset($data['poblacion']) || 
         !isset($data['otra_titulacion']) || 
         !isset($data['vehiculo']) || 
+        !isset($data['ingles']) ||
+        !isset($data['euskera']) ||
+        !isset($data['otros_idiomas']) ||    
         !isset($data['id_ciclo'])) {
         http_response_code(400);
         echo json_encode(['message' => 'Bad request. Missing required data', 'updated' => false]);
@@ -31,6 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $poblacion = $data['poblacion'];
     $otra_titulacion = $data['otra_titulacion'];
     $vehiculo = $data['vehiculo'];
+    $ingles = $data['ingles'];
+    $euskera = $data['euskera'];
+    $otros_idiomas = $data['otros_idiomas'];
     $id_ciclo = $data['id_ciclo'];
 
     // Update alumno in the database
@@ -43,6 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             poblacion = '$poblacion', 
             otra_titulacion = '$otra_titulacion', 
             vehiculo = $vehiculo,
+            ingles = '$ingles',
+            euskera = '$euskera',
+            otros_idiomas = '$otros_idiomas',
             id_ciclo = $id_ciclo
             WHERE id = $id";
     if ($conn->query($sql) === TRUE) {

@@ -17,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         !isset($data['email']) || 
         !isset($data['otra_titulacion']) || 
         !isset($data['vehiculo']) ||
+        !isset($data['ingles']) ||
+        !isset($data['euskera']) ||
+        !isset($data['otros_idiomas']) ||
         !isset($data['id_ciclo'])) {
         http_response_code(400);
         echo json_encode(['message' => 'Bad request. Missing required data', 'created' => false]);
@@ -31,12 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $data['email'];
     $otra_titulacion = $data['otra_titulacion'];
     $vehiculo = $data['vehiculo'];
+    $ingles = $data['ingles'];
+    $euskera = $data['euskera'];
+    $otros_idiomas = $data['otros_idiomas'];
     $id_ciclo = $data['id_ciclo'];
 
     // Insert new alumno into database
     $conn = connectDB();
-    $sql = "INSERT INTO alumnos (dni, nombre, apellidos, poblacion, email, otra_titulacion, vehiculo, id_ciclo) 
-            VALUES ('$dni', '$nombre', '$apellidos', '$poblacion', '$email', '$otra_titulacion', $vehiculo, $id_ciclo)";
+    $sql = "INSERT INTO alumnos (dni, nombre, apellidos, poblacion, email, otra_titulacion, vehiculo, ingles, euskera, otros_idiomas, id_ciclo) 
+            VALUES ('$dni', '$nombre', '$apellidos', '$poblacion', '$email', '$otra_titulacion', $vehiculo, '$ingles', '$euskera', '$otros_idiomas', $id_ciclo)";
+    // die($sql);
     if ($conn->query($sql) === TRUE) {
         $newAlumnoId = $conn->insert_id;
         echo json_encode(['message' => 'Alumno created successfully', 'created' => true, 'id' => $newAlumnoId]);
