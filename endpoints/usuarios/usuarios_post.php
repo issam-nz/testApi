@@ -29,9 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasena = $data['contrasena'];
     $id_tipo_usuario = $data['id_tipo_usuario'];
 
+    // Hash the password
+    $hashedPassword = hash('sha256', $contrasena);
+
     // Insert new usuario into database
     $conn = connectDB();
-    $sql = "INSERT INTO usuarios (username, nombre, apellidos, email, contrasena, id_tipo_usuario) VALUES ('$username', '$nombre', '$apellidos', '$email', '$contrasena', $id_tipo_usuario)";
+    $sql = "INSERT INTO usuarios (username, nombre, apellidos, contrasena, id_tipo_usuario) 
+    VALUES ('$username', '$nombre', '$apellidos', '$hashedPassword', $id_tipo_usuario)";
     if ($conn->query($sql) === TRUE) {
         $newUsuarioId = $conn->insert_id;
         echo json_encode(['message' => 'Usuario created successfully','created' => true, 'id' => $newUsuarioId]);

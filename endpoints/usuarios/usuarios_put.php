@@ -12,8 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         !isset($data['username']) ||
         !isset($data['nombre']) ||
         !isset($data['apellidos']) || 
-        !isset($data['email']) || 
-        !isset($data['contrasena']) || 
         !isset($data['id_tipo_usuario'])) {
         http_response_code(400);
         echo json_encode(['message' => 'Bad request. Missing required data', 'updated' => false]);
@@ -25,9 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $username = $data['username'];
     $nombre = $data['nombre'];
     $apellidos = $data['apellidos'];
-    $email = $data['email'];
-    $contrasena = $data['contrasena'];
     $id_tipo_usuario = $data['id_tipo_usuario'];
+
+    // Check if the new password is provided
+    if (isset($data['contrasena'])) {
+        // Hash the new password
+        $contrasena = $data['contrasena'];
+        $hashedPassword = hash('sha256', $contrasena);
+        $updatePassword = ", contrasena = '$hashedPassword'";
+    } else {
+        $updatePassword = "";
+    }
 
     // Update usuario in the database
     $conn = connectDB();
@@ -35,9 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             username = '$username', 
             nombre = '$nombre', 
             apellidos = '$apellidos', 
-            email = '$email', 
-            contrasena = '$contrasena', 
             id_tipo_usuario = $id_tipo_usuario 
+            $updatePassword
             WHERE id = $id";
     if ($conn->query($sql) === TRUE) {
         echo json_encode(['message' => 'Usuario updated successfully', 'updated' => true]);

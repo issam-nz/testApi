@@ -20,11 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Connect to the database
     $conn = connectDB();
 
+    // Hash the received password using SHA-256
+    $hashedPassword = hash('sha256', $password);
+
     // Prepare and execute SQL query
     $sql = "SELECT u.id, u.username, u.nombre, u.apellidos, u.id_tipo_usuario, tu.nombre AS nombre_tipo_usuario 
-            FROM usuarios u 
-            INNER JOIN tipo_usuario tu ON u.id_tipo_usuario = tu.id 
-            WHERE username = '$username' AND contrasena = '$password'";
+    FROM usuarios u 
+    INNER JOIN tipos_usuarios tu ON u.id_tipo_usuario = tu.id 
+    WHERE username = '$username' AND contrasena = '$hashedPassword'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

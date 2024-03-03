@@ -34,7 +34,7 @@ if (!empty($id)) {
     // Get usuario by ID
     $sql = "SELECT u.*, tu.nombre AS nombre_tipo_usuario 
             FROM usuarios u 
-            INNER JOIN tipo_usuario tu ON u.id_tipo_usuario = tu.id 
+            INNER JOIN tipos_usuarios tu ON u.id_tipo_usuario = tu.id 
             WHERE u.id = $id";
     $result = $conn->query($sql);
 
@@ -68,7 +68,7 @@ if (!empty($id)) {
     // Get all usuarios with filter if provided
     $sql = "SELECT u.*, tu.nombre AS nombre_tipo_usuario 
             FROM usuarios u 
-            INNER JOIN tipo_usuario tu ON u.id_tipo_usuario = tu.id 
+            INNER JOIN tipos_usuarios tu ON u.id_tipo_usuario = tu.id 
             WHERE 1" . $filterSQL;
     $result = $conn->query($sql);
 
