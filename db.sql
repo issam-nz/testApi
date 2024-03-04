@@ -182,3 +182,23 @@ INSERT INTO alumnos (dni, nombre, apellidos, poblacion, email, otra_titulacion, 
 ('23456789G', 'Sara', 'Pérez García', 'Zarauz', 'sara.perez@example.com', 'Formación Profesional Básica', 1, 'C1', 'A2', 'Chino, Turco', 2),
 ('45678901H', 'Pedro', 'Rodríguez Martínez', 'Eibar', 'pedro.rodriguez@example.com', NULL, 0, 'A1', 'B1', 'Griego', 1),
 ('67890123I', 'Carmen', 'Martín Sánchez', 'Orio', 'carmen.martin@example.com', NULL, 1, 'B2', 'C1', 'Sueco, Polaco', 1);
+
+INSERT INTO empresas (nif, pais, razonSocial, titularidad, tipo_entidad, territorio, municipio, direccion, codigo_postal, telefono, fax, cnae, numero_trabajadores)
+VALUES ('123456789', 'Spain', 'Empresa1', 'Privada', 'SL', 'Guipúzcoa', 'San Sebastián', 'Dirección 1', '20001', '123456789', '987654321', 'CNAE1', 50),
+       ('987654321', 'Spain', 'Empresa2', 'Pública', 'SA', 'Vizcaya', 'Bilbao', 'Dirección 2', '48001', '987654321', '123456789', 'CNAE2', 100);
+
+INSERT INTO centros_trabajo (id_empresa, denominacion, pais, territorio, municipio, codigo_postal, direccion, telefono, telefono2, fax, email, actividad, numero_trabajadores)
+VALUES (1, 'Centro1', 'Spain', 'Guipúzcoa', 'San Sebastián', '20001', 'Dirección 1', '123456789', '987654321', '987654321', 'centro1@example.com', 'Actividad1', 20),
+       (2, 'Centro2', 'Spain', 'Vizcaya', 'Bilbao', '48001', 'Dirección 2', '987654321', '123456789', '123456789', 'centro2@example.com', 'Actividad2', 30);
+
+INSERT INTO contactos (nif, nombre, apellidos, telefono, movil, fax, email, departamento, responsable, id_centro)
+VALUES ('123456789', 'Contacto1', 'Apellido1', '123456789', '987654321', '987654321', 'contacto1@example.com', 'Departamento1', 1, 1),
+       ('987654321', 'Contacto2', 'Apellido2', '987654321', '123456789', '123456789', 'contacto2@example.com', 'Departamento2', 0, 2);
+
+INSERT INTO profesores (dni, nombre, apellidos) VALUES 
+('11111111A', 'Profesor1', 'Apellido1'),
+('22222222B', 'Profesor2', 'Apellido2');
+
+INSERT INTO practicas (id_alumno, id_centro_trabajo, id_responsable, id_tutor, id_tipo_practica, fecha_inicio, fecha_fin)
+VALUES (1, 1, 1, 1, 1, '2023-01-01', '2023-06-30'),
+       (2, 2, 2, 2, 2, '2023-02-01', '2023-07-30');
