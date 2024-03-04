@@ -5,8 +5,10 @@ require_once 'db.php';
 
 // Handle DELETE request
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Check if id is provided in the request
-    if (!isset($_GET['id'])) {
+    $id = $_GET['id'] ?? '';
+
+    // Validate ID
+    if (empty($id)) {
         http_response_code(400);
         echo json_encode(['message' => 'Bad request. Missing alumno id', 'deleted' => false]);
         exit();
