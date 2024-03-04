@@ -1,7 +1,6 @@
 <?php
 
 // Include necessary files
-require_once 'config.php';
 require_once 'db.php';
 
 // Handle POST request
